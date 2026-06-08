@@ -1,0 +1,1 @@
+quick try to write a deterministic algorithm mostly to familiarize myself with the alpaca api for paper trading.
