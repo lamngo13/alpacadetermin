@@ -1,3 +1,5 @@
+# run this pip install first
+#pip install alpaca-py
 import datetime
 from alpaca.data.historical import CryptoHistoricalDataClient
 from alpaca.data.requests import CryptoBarsRequest
