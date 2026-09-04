@@ -15,7 +15,7 @@ request = StockBarsRequest(
     timeframe=TimeFrame(1, TimeFrameUnit.Minute),
     start="2024-01-04",
     end="2024-01-05",
-    limit=1000,
+    limit=100,
     feed=DataFeed.IEX,
 )
 bars = client.get_stock_bars(request)
