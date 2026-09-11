@@ -9,7 +9,7 @@ from influxdb_client_3 import InfluxDBClient3, Point
 
 api_key, api_secret = load_api_credentials()
 
-YOUR_INFLUX_TOKEN = "bruh"
+YOUR_INFLUX_TOKEN = "yuh"
 client = StockHistoricalDataClient(api_key, api_secret)
 
 request = StockBarsRequest(
@@ -32,7 +32,7 @@ influx_client = InfluxDBClient3(
     token=YOUR_INFLUX_TOKEN,
 )
 
-
+points = []
 for (symbol, timestamp), row in df.iterrows():
     point = (
         Point("stock_bars")
@@ -47,7 +47,10 @@ for (symbol, timestamp), row in df.iterrows():
         .time(timestamp)
     )
 
-    influx_client.write(point)
+    points.append(point)
+
+
+influx_client.write(points)
 
 
 influx_client.close()
