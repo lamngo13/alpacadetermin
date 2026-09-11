@@ -1,4 +1,4 @@
-from secrets_utils import load_api_credentials
+from secrets_utils import load_api_credentials, load_db_secret
 from datetime import datetime
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.common.exceptions import APIError
@@ -9,7 +9,8 @@ from influxdb_client_3 import InfluxDBClient3, Point
 
 api_key, api_secret = load_api_credentials()
 
-YOUR_INFLUX_TOKEN = "yuh"
+YOUR_INFLUX_TOKEN = load_db_secret()
+
 client = StockHistoricalDataClient(api_key, api_secret)
 
 request = StockBarsRequest(

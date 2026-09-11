@@ -29,3 +29,15 @@ def load_api_credentials(secrets_file: str = "secrets.env") -> tuple[str, str]:
   api_key = api_key or secrets.get("APCA-API-KEY-ID", "")
   api_secret = api_secret or secrets.get("APCA-API-SECRET-KEY", "")
   return api_key, api_secret
+
+def load_db_secret(secrets_file: str = "secrets.env") -> str:
+  # Prefer real shell environment variable exported in terminal.
+  db_secret = os.getenv("INFLUXDB_TOKEN", "")
+
+  if db_secret:
+    return db_secret
+
+  # Fallback to values from secrets file.
+  secrets = load_secrets_env(secrets_file)
+  db_secret = db_secret or secrets.get("INFLUXDB_TOKEN", "")
+  return db_secret
