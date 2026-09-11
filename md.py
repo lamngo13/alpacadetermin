@@ -5,9 +5,11 @@ from alpaca.common.exceptions import APIError
 from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from alpaca.data.enums import DataFeed
+from influxdb_client_3 import InfluxDBClient3, Point
 
 api_key, api_secret = load_api_credentials()
 
+YOUR_INFLUX_TOKEN = "bruh"
 client = StockHistoricalDataClient(api_key, api_secret)
 
 request = StockBarsRequest(
@@ -21,3 +23,33 @@ request = StockBarsRequest(
 bars = client.get_stock_bars(request)
 
 print(bars.df)
+
+df = bars.df
+
+influx_client = InfluxDBClient3(
+    host="http://localhost:8181",
+    database="voo",
+    token=YOUR_INFLUX_TOKEN,
+)
+
+
+for (symbol, timestamp), row in df.iterrows():
+    point = (
+        Point("stock_bars")
+        .tag("symbol", symbol)
+        .field("open", float(row["open"]))
+        .field("high", float(row["high"]))
+        .field("low", float(row["low"]))
+        .field("close", float(row["close"]))
+        .field("volume", float(row["volume"]))
+        .field("trade_count", float(row["trade_count"]))
+        .field("vwap", float(row["vwap"]))
+        .time(timestamp)
+    )
+
+    influx_client.write(point)
+
+
+influx_client.close()
+
+print(f"Wrote {len(df)} rows to InfluxDB")
