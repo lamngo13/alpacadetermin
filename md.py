@@ -35,8 +35,13 @@ while current_date < today:
         feed=DataFeed.IEX,
     )
     #make request and put it in dataframe
-    bars = client.get_stock_bars(request)
-    df = bars.df
+    try:
+        bars = client.get_stock_bars(request)
+        df = bars.df
+    except APIError as error:
+        print(f"Client error: {error}. Retrying...")
+        time.sleep(15)
+        continue
 
     #ITERATE CURRENT DAY
     current_date = next_date
