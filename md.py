@@ -40,7 +40,7 @@ while current_date < today:
         df = bars.df
     except APIError as error:
         print(f"Client error: {error}. Retrying...")
-        time.sleep(15)
+        time.sleep(10)
         continue
 
     #ITERATE CURRENT DAY
@@ -83,4 +83,4 @@ while current_date < today:
 
     print(f"Wrote {len(df)} rows to InfluxDB")
     #SLEEP
-    time.sleep(15)
+    time.sleep(10)
