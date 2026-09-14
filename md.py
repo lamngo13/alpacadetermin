@@ -31,7 +31,7 @@ while current_date < today:
         timeframe=TimeFrame(1, TimeFrameUnit.Minute),
         start=current_date.strftime("%Y-%m-%d"),
         end=next_date.strftime("%Y-%m-%d"),
-        limit=10000, #i think its ballpark 390 anyway
+        limit=10000, #i think its ballpark 900 anyway - also includes aftermarket i think
         feed=DataFeed.SIP,
     )
     #make request and put it in dataframe
@@ -83,4 +83,4 @@ while current_date < today:
 
     print(f"Wrote {len(df)} rows to InfluxDB")
     #SLEEP
-    time.sleep(10)
+    time.sleep(1)
