@@ -56,6 +56,7 @@ while current_date < today:
         host="http://localhost:8181",
         database="voo",
         token=YOUR_INFLUX_TOKEN,
+        timeout=60000, #default is 8 seconds so we increase
     )
 
     points = []
