@@ -17,7 +17,7 @@ YOUR_INFLUX_TOKEN = load_db_secret()
 client = StockHistoricalDataClient(api_key, api_secret)
 
 #date setup
-first_date = datetime(2023, 1, 1)
+first_date = datetime(2026, 9, 9)
 today = datetime.now() #this will be datetime.now() in the future
 
 current_date = first_date
