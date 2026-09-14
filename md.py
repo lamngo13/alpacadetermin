@@ -32,7 +32,7 @@ while current_date < today:
         start=current_date.strftime("%Y-%m-%d"),
         end=next_date.strftime("%Y-%m-%d"),
         limit=10000, #i think its ballpark 390 anyway
-        feed=DataFeed.IEX,
+        feed=DataFeed.SIP,
     )
     #make request and put it in dataframe
     try:
