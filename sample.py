@@ -1,5 +1,6 @@
 from secrets_utils import load_db_secret
 from influxdb_client_3 import InfluxDBClient3
+from datetime import datetime, timedelta
 
 
 # InfluxDB setup
@@ -39,6 +40,23 @@ sample_query = f"""
 result = client.query(sample_query)
 df = result.to_pandas()
 
-print(df)
+#TODO honestly lets just start at 2 pm and go back
+#TODO we can start dummy simple
+#TODO what are we looking for in the last 3 hrs from given date?
+# we are looking for gains
+
+
+start_time = f"{target_date}T14:00:00Z"
+for i in range(0, 180, 1):
+    current_time = (datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%SZ") - timedelta(minutes=i)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    print("current_time:", current_time)
+
+exit(0)
+
+
+
+
+#NOTE can uncomment this
+#print(df)
 
 client.close()
