@@ -30,12 +30,19 @@ start = datetime.combine(
 # Stop 3 hours after market open
 stop = start + timedelta(hours=3)
 
+# Convert to UTC for InfluxDB
+start = start.astimezone(timezone.utc).isoformat()
+stop = stop.astimezone(timezone.utc).isoformat()
+
+print("start:", start)
+print("stop:", stop)
+
 sample_query = f"""
     SELECT *
     FROM stock_bars
     WHERE symbol = 'SPY'
-      AND time >= '{target_date}T00:00:00Z'
-      AND time < '{target_date}T23:59:59Z'
+      AND time >= '{start}'
+      AND time < '{stop}'
     ORDER BY time
 """
 
